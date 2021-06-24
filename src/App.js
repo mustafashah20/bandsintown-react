@@ -1,13 +1,14 @@
 import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import Search from './components/search'
 
 function App() {
   return (
     <div className="App">
       <main>
-        <section className="glass">
+        <div className="container">
           <Search/>
-        </section>
+        </div>
       </main>
     </div>
   );
