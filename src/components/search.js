@@ -2,12 +2,13 @@ import React, { useEffect, useState, useRef } from 'react'
 import { BsSearch, BsX } from "react-icons/bs";
 import { motion, AnimatePresence } from 'framer-motion'
 import { useClickOutside } from 'react-click-outside-hook';
+import { MoonLoader } from 'react-spinners';
 
 const Search = () => {
 
     const [inputVal, setInputVal] = useState('')
     // const [name, setName] = useState('')
-    // const [eventCount, setEventCount] = useState('')
+    // const [eventCount, setEventCount] = useState('') 
     const [isExpanded, setExpanded] = useState(false)
     const [clickRef, isClickedOutside] = useClickOutside()
     const inputRef = useRef()
@@ -110,6 +111,12 @@ const Search = () => {
                         </motion.span>
                     }
                 </AnimatePresence>
+            </div>
+            <div className="line-seperator"></div>
+            <div className="search-content">
+                <div className="loading-wrapper">
+                    <MoonLoader loading={true} color="#000" size={30}/>
+                </div>
             </div>
         </motion.div>
     );
