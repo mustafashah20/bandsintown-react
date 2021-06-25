@@ -119,7 +119,30 @@ main {
 
 .close-icon:hover {
   color: #dfdfdf;
-
 }
 
-/* Test Component CSS */
+.artist-search-container {
+    width: 100%;
+    height: 2em;
+    display: flex;
+    border-bottom: 1px solid #bebebe;
+    padding: 6px 8px;
+}
+
+.artist-thumbnail {
+    width: auto;
+    height: 100%;
+    display: flex;
+    flex: 1;
+}
+.artist-thumbnail img {
+    width: auto;
+    height: 100%;
+}
+
+.artist-name {
+    color: black;
+    margin-left: 10px;
+    display: flex;
+    flex: 2;
+}

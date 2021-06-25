@@ -1,23 +1,24 @@
 import { useState, useEffect } from "react";
 
 export function useDebounce(value, timeout, callback) {
-    const [timer, setTimer] = useState(null)
+    const [timer, setTimer] = useState(null);
 
     const clearTimer = () => {
         if (timer) {
-            clearTimer(timer)
+            clearTimeout(timer);
         }
     }
 
     useEffect(() => {
-        clearTimer()
+
+        clearTimer();
 
         if (value && callback) {
-            const newTimer = setTimeout(callback, timeout)
-            setTimer(newTimer)
+            const newTimer = setTimeout(callback, timeout);
+            setTimer(newTimer);
         }
 
-    }, [value]);
+    }, [value]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
 }

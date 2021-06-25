@@ -1,6 +1,6 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
-import Search from './components/search'
+import Search from './components/Search/search'
 
 function App() {
   return (
