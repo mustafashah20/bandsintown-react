@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useClickOutside } from 'react-click-outside-hook';
 import { MoonLoader } from 'react-spinners';
 import { useDebounce } from '../../hooks/debounceHook'
-import ArtistSearchResult from '../artistSearchResult/ArtistSearchResult';
+import ArtistSearchResult from '../artistSearchResult/artistSearchResult';
 
 const Search = () => {
 
@@ -15,7 +15,7 @@ const Search = () => {
     const [clickRef, isClickedOutside] = useClickOutside();
     const inputRef = useRef();
 
-    const isEmpty = !artists || artists.length() === 0;
+    const isEmpty = !artists || artists.length === 0;
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -30,6 +30,7 @@ const Search = () => {
         setExpanded(false);
         setInputVal('');
         setIsLoading(false);
+        setArtist([]);
         if (inputRef.current) {
             inputRef.current.value = '';
         }
@@ -83,7 +84,9 @@ const Search = () => {
             fetch(URL).then(
                 (response) => response.json().then(
                     (data) => {
-                        setArtist(data);
+                        console.log(data.artists);
+                        setArtist(data.artists);
+                        setIsLoading(false);
                     }
                 )
             )
@@ -91,12 +94,6 @@ const Search = () => {
             console.log(error);
         }
     }
-
-    // href: "https://www.bandsintown.com/a/76765-john?came_from=257"
-    // imageSrc: "https://photos.bandsintown.com/thumb/7349968.jpeg"
-    // name: "John"
-    // trackerText: "6,147 Trackers"
-    // verifiedSrc: "https://assets.prod.bandsintown.com/images/verifiedCheck.svg"
 
     useDebounce(inputVal, 500, getArtist);
 
@@ -106,7 +103,7 @@ const Search = () => {
             variants={containerVariat}
             transition={containerTransition}
             ref={clickRef}>
-            <div className="container search-input-container">
+            <div className="search-input-container">
                 <span className="search-icon">
                     <BsSearch />
                 </span>
@@ -132,26 +129,30 @@ const Search = () => {
                     }
                 </AnimatePresence>
             </div>
-            <div className="line-seperator"></div>
-            <div className="search-content">
-                {
-                    isLoading &&
-                    <div className="loading-wrapper">
-                        <MoonLoader loading={true} color="#000" size={30} />
-                    </div>
-                }
-                {
-                    isLoading && isEmpty &&
-                    <> 
-                        {
-                            artists.map((artist) => {
-                                <ArtistSearchResult thumbnailSrc={artist.imageSrc} artistName={artist.name}/>
-                            })
-                        }
-                    </>
-                    
-                }
-            </div>
+            { isExpanded && <div className="line-seperator"/>}
+            {
+                isExpanded && 
+                <div className="search-content">
+                    {
+                        isLoading &&
+                        <div className="loading-wrapper">
+                            <MoonLoader loading={true} color="#000" size={30} />
+                        </div>
+                    }
+                    {
+                        !isLoading && !isEmpty &&
+                        <div> 
+                            {
+                                artists.map((artist) => (
+                                    <ArtistSearchResult thumbnailSrc={artist.imageSrc} artistName={artist.name} key={artist.name}/>
+                                ))
+                                    
+                            }
+                        </div>
+                    }
+                </div>
+            }
+    
         </motion.div>
     );
 }

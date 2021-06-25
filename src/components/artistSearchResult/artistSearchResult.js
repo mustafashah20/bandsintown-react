@@ -1,13 +1,13 @@
-import React from './react'
+import React from 'react'
 
-const ArtistSearchResult = (props) => {
+const ArtistSearchResult = ({thumbnailSrc, artistName}) => {
     return ( 
         <div className="artist-search-container">
             <div className="artist-thumbnail">
-                <img src={thumbnailSrc}/>
-                <h3 className="artist-name">
+                <img src={thumbnailSrc} alt="artist thumbnail"/>
+                <h4 className="artist-name">
                     {artistName}
-                </h3>
+                </h4>
             </div>
         </div>
      );
