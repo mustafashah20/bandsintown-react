@@ -3,17 +3,19 @@ import { BsSearch, BsX } from "react-icons/bs";
 import { motion, AnimatePresence } from 'framer-motion'
 import { useClickOutside } from 'react-click-outside-hook';
 import { MoonLoader } from 'react-spinners';
+import { useDebounce } from '../hooks/debounceHook'
 
 const Search = () => {
 
     const [inputVal, setInputVal] = useState('')
-    // const [name, setName] = useState('')
-    // const [eventCount, setEventCount] = useState('') 
+    const [name, setName] = useState('')
+    const [eventCount, setEventCount] = useState('') 
     const [isExpanded, setExpanded] = useState(false)
     const [clickRef, isClickedOutside] = useClickOutside()
     const inputRef = useRef()
 
     const handleInputChange = (e) => {
+        e.preventDefault()
         setInputVal(e.target.value);
     }
 
@@ -29,6 +31,7 @@ const Search = () => {
 
     const collapseContainer = () => {
         setExpanded(false)
+        setInputVal('')
         if(inputRef.current){
             inputRef.current.value = ''
         }
@@ -55,6 +58,8 @@ const Search = () => {
         }
     }, [isClickedOutside])
 
+    useDebounce()
+
 
     //`https://rest.bandsintown.com/artists/${ inputVal }?app_id=12345`
 
@@ -70,8 +75,8 @@ const Search = () => {
             (response) => response.json().then(
               (data) => {
                 console.log(data)
-                // setName(data.name)
-                // setEventCount(data.upcoming_event_count)
+                setName(data.name)
+                setEventCount(data.upcoming_event_count)
               }
             )
           )
@@ -97,6 +102,7 @@ const Search = () => {
                 onKeyDown={handleSubmit}
                 onFocus={expandContainer}
                 ref={inputRef}
+                value={inputVal}
                 />
                 <AnimatePresence>
                     { isExpanded && 
