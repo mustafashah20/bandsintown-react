@@ -130,6 +130,10 @@ main {
     padding: 6px 8px;
 }
 
+.artist-search-container:hover{
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
 .artist-thumbnail {
     width: auto;
     height: 100%;
@@ -149,4 +153,17 @@ main {
     margin-left: 10px;
     display: flex;
     flex: 2;
+}
+
+.search-warning {
+    color: #bebebe;
+    font-weight: 500;
+    font-size: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.my-link {
+    text-decoration: none !important;
 }

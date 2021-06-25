@@ -4,12 +4,13 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useClickOutside } from 'react-click-outside-hook';
 import { MoonLoader } from 'react-spinners';
 import { useDebounce } from '../../hooks/debounceHook'
-import ArtistSearchResult from '../artistSearchResult/artistSearchResult';
+import ArtistSearchResult from '../ArtistSearchResult/ArtistSearchResult';
 
 const Search = () => {
 
     const [inputVal, setInputVal] = useState('');
     const [artists, setArtist] = useState([]);
+    const [noArtistFound, setNoArtistFound] = useState(false);
     const [isExpanded, setExpanded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [clickRef, isClickedOutside] = useClickOutside();
@@ -19,6 +20,9 @@ const Search = () => {
 
     const handleInputChange = (e) => {
         e.preventDefault();
+        if(e.target.value.trim() === ""){
+            setNoArtistFound(false);
+        }
         setInputVal(e.target.value);
     }
 
@@ -30,6 +34,7 @@ const Search = () => {
         setExpanded(false);
         setInputVal('');
         setIsLoading(false);
+        setNoArtistFound(false);
         setArtist([]);
         if (inputRef.current) {
             inputRef.current.value = '';
@@ -78,15 +83,19 @@ const Search = () => {
         }
 
         setIsLoading(true);
+        setNoArtistFound(false);
 
         const URL = prepareSearchValue(inputVal);
         try {
             fetch(URL).then(
                 (response) => response.json().then(
                     (data) => {
-                        console.log(data.artists);
+                        if(data.artists && data.artists.length === 0){
+                            setNoArtistFound(true);
+                        }
                         setArtist(data.artists);
                         setIsLoading(false);
+                        console.log(noArtistFound)
                     }
                 )
             )
@@ -96,6 +105,8 @@ const Search = () => {
     }
 
     useDebounce(inputVal, 500, getArtist);
+
+    
 
     return (
         <motion.div className="container search-container"
@@ -140,11 +151,27 @@ const Search = () => {
                         </div>
                     }
                     {
+                        !isLoading && isEmpty && !noArtistFound &&
+                        <div className="loading-wrapper">
+                            <span className="search-warning">Start typing to search.</span>
+                        </div>
+                        
+                    }
+                    {
+                        !isLoading && noArtistFound &&
+                        <div className="loading-wrapper">
+                            <span className="search-warning">No Artist found!</span>
+                        </div>
+                        
+                    }
+                    {
                         !isLoading && !isEmpty &&
                         <div> 
                             {
                                 artists.map((artist) => (
-                                    <ArtistSearchResult thumbnailSrc={artist.imageSrc} artistName={artist.name} key={artist.name}/>
+                                    <ArtistSearchResult thumbnailSrc={artist.imageSrc} 
+                                    artistName={artist.name} 
+                                    key={artist.name}/>
                                 ))
                                     
                             }
