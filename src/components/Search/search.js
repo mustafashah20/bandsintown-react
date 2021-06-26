@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useClickOutside } from 'react-click-outside-hook';
 import { MoonLoader } from 'react-spinners';
 import { useDebounce } from '../../hooks/debounceHook'
-import ArtistSearchResult from '../artistSearchResult/artistSearchResult';
+import ArtistSearchResult from '../ArtistSearchResult/ArtistSearchResult';
 
 const Search = () => {
 
