@@ -1,6 +1,6 @@
 import './App.css';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
-import Search from './components/Search/search';
+import Search from './components/Search/Search';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import ArtistEvents from './components/ArtistEvents/ArtistEvents';
 
