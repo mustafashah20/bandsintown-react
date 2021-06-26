@@ -3,21 +3,24 @@ import { useHistory, useLocation } from 'react-router-dom';
 import { BsChevronLeft } from "react-icons/bs";
 import EventDetailCard from '../EventDetailCard/EventDetailCard';
 import ArtistBanner from '../ArtistBanner/ArtistBanner';
-const ArtistEvents = (props) => {
+import { MoonLoader } from 'react-spinners';
+
+
+const ArtistEvents = () => {
 
     const location = useLocation();
     const history = useHistory();
     const [artist, setArtist] = useState(null);
     const [events, setEvents] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
         setArtist(location.state.artist);
-        getEventDetails();
     }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        
-    }, []) // eslint-disable-line react-hooks/exhaustive-deps
+        getEventDetails();
+    }, [artist]); // eslint-disable-line react-hooks/exhaustive-deps
 
 
     const backClickHandler = () => {
@@ -32,13 +35,17 @@ const ArtistEvents = (props) => {
 
     const getEventDetails = () => {
         if (artist) {
+
+            setIsLoading(true);
+
             const URL = prepareEventDetailQuery(artist.name);
+
             try {
                 fetch(URL).then(
                     (response) => response.json().then(
                         (data) => {
-                            console.log(data)
                             setEvents(data);
+                            setIsLoading(false);
                         }
                     )
                 )
@@ -84,15 +91,21 @@ const ArtistEvents = (props) => {
             </div>
             <div className="row mb-5">
                 {
+                    isLoading &&
+                    <div className="loading-wrapper mt-5 d-flex justify-content-center">
+                        <MoonLoader loading={true} color="#000" size={30} />
+                    </div>
+                }
+                {
                     events &&
 
                     events.map((event) => (
                         <EventDetailCard
-                            
+                            key={event.id}
                             country={event.venue.country}
                             city={event.venue.city}
                             venue={event.venue.name}
-                            date={event.datetime} 
+                            date={event.datetime}
                         />
                     ))
                 }
