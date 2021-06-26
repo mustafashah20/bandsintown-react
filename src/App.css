@@ -5,12 +5,17 @@
 } 
 
 html {
-    background-color: #EDF2F9;
+    /* background-color: #EDF2F9; */
+    background: url('./images/bg2.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position-x: center;
+    background-position-y: cover;
+    background-attachment: fixed;
 }
 
-main {
+.my-main {
     height: 100vh;
-    background-color: #EDF2F9;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -39,7 +44,7 @@ main {
     flex-direction: column;
     width: 34em;
     height: 3.8em;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 1);
     border-radius: 5px;
     box-shadow: 0px 2px 12px 3px rgba(0, 0, 0, 0.14);
     padding: 0px !important;
@@ -171,7 +176,7 @@ main {
 }
 
 .back-icon {
-    color: black;
+    color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
@@ -183,7 +188,7 @@ main {
 
 
 .back-text {
-    color: black;
+    color: white;
     font-size: 20px;
     cursor: pointer;
     transition: all 0.5s;
@@ -196,11 +201,34 @@ main {
 .artist-image {
     height: 8em;
     border-radius: 50%;
-    border: solid 1px black;
+    border: solid 2px black;
 }
 
 .facebook-link {
-    color: black;
+    color: white;
     text-decoration: none;
     font-weight: 400;
+}
+
+.my-card{
+    color: white !important;
+    background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)) !important;
+    border: 1px solid transparent !important;
+    
+    backdrop-filter: blur(5px) !important;
+
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.3) !important;
+
+    border-top-color: rgba(255, 255, 255, 0.5) !important;
+    border-left-color: rgba(255, 255, 255, 0.5) !important;
+    border-right-color: rgba(255, 255, 255, 0.1) !important;
+    border-bottom-color: rgba(255, 255, 255, 0.1) !important;
+    transition: all 300ms;
+
+}
+
+.my-card-anim:hover {
+    transform: translateY(-3px);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5) !important;
+    cursor: pointer;
 }

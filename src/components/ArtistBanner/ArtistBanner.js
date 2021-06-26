@@ -3,7 +3,7 @@ import React from "react";
 const ArtistBanner = ({ thumbnailURL, artistName, facebookUrl }) => {
     return (
         <div className="col-xs-12 col-sm-12 col-md-4 p-2 ">
-            <div className="card h-100">
+            <div className="card h-100 my-card">
                 <div className="card-body">
                     <div className="row align-items-center">
 

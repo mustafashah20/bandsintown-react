@@ -83,7 +83,7 @@ const ArtistEvents = () => {
                 <div className="col p-2">
                     {
                         artist &&
-                        <p className="h5">
+                        <p className="h5 text-white">
                             {artist.upcoming_event_count} up coming events
                         </p>
                     }
