@@ -7,6 +7,7 @@ const ArtistSearchResult = ({thumbnailSrc, artistName}) => {
 
     const prepareArtistQuery = (value) => {
         const url = `https://rest.bandsintown.com/artists/${ value }?app_id=12345`;
+        
         return encodeURI(url);
     }
 
@@ -18,7 +19,6 @@ const ArtistSearchResult = ({thumbnailSrc, artistName}) => {
                     (data) => {
                         history.push({
                             pathname: '/event',
-                            search: '?query=abc',
                             state: { artist: data }
                         })
                     }
