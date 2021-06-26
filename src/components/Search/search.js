@@ -68,14 +68,6 @@ const Search = () => {
         return encodeURI(url);
     }
 
-    //`https://rest.bandsintown.com/artists/${ inputVal }?app_id=12345`
-
-    //`http://localhost:3005/artist?name=${inputVal}`
-
-    //`https://www.bandsintown.com/searchSuggestions?searchTerm=${inputVal}`
-
-    //`http://localhost:3005/search?name=${inputVal}`
-
     const getArtist = () => {
 
         if (!inputVal || inputVal.trim() === "") {
@@ -95,7 +87,6 @@ const Search = () => {
                         }
                         setArtist(data.artists);
                         setIsLoading(false);
-                        console.log(noArtistFound)
                     }
                 )
             )
