@@ -1,6 +1,7 @@
 import React from "react";
+import moment from "moment";
 
-const EventDetailCard = ({ country, city, venue, date}) => {
+const EventDetailCard = ({ country, city, venue, date }) => {
     return (<div className="col-xs-12 col-sm-12 col-md-4 p-2 ">
         <div className="card h-100">
             <div className="card-body">
@@ -42,7 +43,9 @@ const EventDetailCard = ({ country, city, venue, date}) => {
                             <div className="col h6">Date</div>
                         </div>
                         <div className="row">
-                            <div className="col">{date}</div>
+                            <div className="col">
+                                {moment(date).format('DD MMM, YYYY')}
+                            </div>
                         </div>
                     </div>
                 </div>
