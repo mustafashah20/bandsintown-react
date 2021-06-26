@@ -4,6 +4,10 @@
     box-sizing: border-box;
 } 
 
+html {
+    background-color: #EDF2F9;
+}
+
 main {
     height: 100vh;
     background-color: #EDF2F9;
