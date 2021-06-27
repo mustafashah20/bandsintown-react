@@ -8,15 +8,15 @@ import Helmet from 'react-helmet';
 function App() {
   return (
     <div className="App">
-    <Helmet bodyAttributes={{style: 'background-color : #FFFFFF00'}}/>
-        <div className="container mt-5">
-          <BrowserRouter>
-            <Switch>
-              <Route exact path="/" component={Search} />
-              <Route exact path="/event" component={ArtistEvents} />
-            </Switch>
-          </BrowserRouter>
-        </div>
+      <Helmet bodyAttributes={{ style: 'background-color : #FFFFFF00' }} />
+      <div className="container mt-5">
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/" component={Search} />
+            <Route exact path="/event" component={ArtistEvents} />
+          </Switch>
+        </BrowserRouter>
+      </div>
     </div>
   );
 }
