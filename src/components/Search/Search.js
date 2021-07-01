@@ -63,12 +63,6 @@ const Search = () => {
         }
     }, [isClickedOutside]);
 
-    const prepareSearchValue = (value) => {
-        const url = `http://localhost:3005/search?name=${value}`;
-
-        return encodeURI(url);
-    }
-
     const getArtist = () => {
 
         if (!inputVal || inputVal.trim() === "") {

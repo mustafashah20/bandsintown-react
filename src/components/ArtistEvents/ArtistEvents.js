@@ -12,16 +12,55 @@ const ArtistEvents = () => {
     const history = useHistory();
     const [artist, setArtist] = useState(null);
     const [events, setEvents] = useState(null);
+    const [newArtist, setNewArtist] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
     useEffect(() => {
-        setArtist(location.state.artist);
+        const data = localStorage.getItem('artist');
+        if (data) {
+            const artistJSON = JSON.parse(data);
+            if (location.state.artist.name === artistJSON.name) {
+                setArtist(artistJSON)
+                setNewArtist(false);
+            }
+            else {
+                setArtist(location.state.artist);
+            }
+        }
+        else {
+            setArtist(location.state.artist);
+        }
     }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
     useEffect(() => {
-        getEventDetails();
+        if (artist) {
+            saveArtist();
+        }
+        const data = localStorage.getItem('artist-events');
+        if (data) {
+            if (!newArtist) {
+                const EventsJSON = JSON.parse(data);
+                setEvents(EventsJSON);
+                setIsLoading(false);
+            }
+            else {
+                getEventDetails();
+            }
+        }
+        else {
+            getEventDetails();
+        }
     }, [artist]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    const saveArtist = () => {
+        localStorage.setItem('artist', JSON.stringify(artist))
+    }
+
+    useEffect(() =>{
+        if(events && newArtist){
+            localStorage.setItem('artist-events', JSON.stringify(events))
+        }
+    },[events]);
 
     const backClickHandler = () => {
         history.goBack();
@@ -37,7 +76,6 @@ const ArtistEvents = () => {
                 }
             )
         }
-
     }
 
     return (
