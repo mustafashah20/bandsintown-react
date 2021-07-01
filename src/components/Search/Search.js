@@ -5,6 +5,7 @@ import { useClickOutside } from 'react-click-outside-hook';
 import { MoonLoader } from 'react-spinners';
 import { useDebounce } from '../../hooks/debounceHook'
 import ArtistSearchResult from '../ArtistSearchResult/ArtistSearchResult';
+import * as api from '../../api/artistApi';
 
 const Search = () => {
 
@@ -77,27 +78,18 @@ const Search = () => {
         setIsLoading(true);
         setNoArtistFound(false);
 
-        const URL = prepareSearchValue(inputVal);
-        try {
-            fetch(URL).then(
-                (response) => response.json().then(
-                    (data) => {
-                        if(data.artists && data.artists.length === 0){
-                            setNoArtistFound(true);
-                        }
-                        setArtist(data.artists);
-                        setIsLoading(false);
-                    }
-                )
-            )
-        } catch (error) {
-            console.log(error);
-        }
+        api.getArtistSearchResults(inputVal).then(
+            (data) => {
+                if(data.artists && data.artists.length === 0){
+                    setNoArtistFound(true);
+                }
+                setArtist(data.artists);
+                setIsLoading(false);
+            }
+        )
     }
 
     useDebounce(inputVal, 500, getArtist);
-
-    
 
     return (
         <motion.div className="container search-container"

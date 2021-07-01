@@ -1,32 +1,20 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import * as api from '../../api/artistApi'
 
 const ArtistSearchResult = ({ thumbnailSrc, artistName }) => {
 
     const history = useHistory();
 
-    const prepareArtistQuery = (value) => {
-        const url = `https://rest.bandsintown.com/artists/${value}?app_id=12345`;
-
-        return encodeURI(url);
-    }
-
-    const artistClickHandler = (artistName) => {
-        const URL = prepareArtistQuery(artistName);
-        try {
-            fetch(URL).then(
-                (response) => response.json().then(
-                    (data) => {
-                        history.push({
-                            pathname: '/event',
-                            state: { artist: data }
-                        })
-                    }
-                )
-            )
-        } catch (error) {
-            console.log(error);
-        }
+    const artistClickHandler = (name) => {
+        api.getArtist(name).then(
+            (data) => {
+                history.push({
+                    pathname: '/event',
+                    state: { artist: data }
+                })
+            }
+        );
     }
 
     return (

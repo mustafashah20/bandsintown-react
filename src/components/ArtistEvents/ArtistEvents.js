@@ -4,7 +4,7 @@ import { BsChevronLeft } from "react-icons/bs";
 import EventDetailCard from '../EventDetailCard/EventDetailCard';
 import ArtistBanner from '../ArtistBanner/ArtistBanner';
 import { MoonLoader } from 'react-spinners';
-
+import * as api from '../../api/artistApi';
 
 const ArtistEvents = () => {
 
@@ -27,31 +27,15 @@ const ArtistEvents = () => {
         history.goBack();
     }
 
-    const prepareEventDetailQuery = (value) => {
-        const url = `https://rest.bandsintown.com/artists/${value}/events?app_id=12345`;
-
-        return encodeURI(url);
-    }
-
     const getEventDetails = () => {
         if (artist) {
-
             setIsLoading(true);
-
-            const URL = prepareEventDetailQuery(artist.name);
-
-            try {
-                fetch(URL).then(
-                    (response) => response.json().then(
-                        (data) => {
-                            setEvents(data);
-                            setIsLoading(false);
-                        }
-                    )
-                )
-            } catch (error) {
-                console.log(error);
-            }
+            api.getArtistEvent(artist.name).then(
+                (data) => {
+                    setEvents(data);
+                    setIsLoading(false);
+                }
+            )
         }
 
     }
@@ -93,7 +77,7 @@ const ArtistEvents = () => {
                 {
                     isLoading &&
                     <div className="loading-wrapper mt-5 d-flex justify-content-center">
-                        <MoonLoader loading={true} color="#000" size={30} />
+                        <MoonLoader loading={true} color="#FFFFFF" size={30} />
                     </div>
                 }
                 {

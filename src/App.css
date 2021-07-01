@@ -210,6 +210,11 @@ html {
     font-weight: 400;
 }
 
+.my-col {
+    display: flex;
+    justify-content: center;
+}
+
 .my-card{
     color: white !important;
     background: linear-gradient(to right bottom, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.1)) !important;

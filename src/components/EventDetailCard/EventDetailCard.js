@@ -1,10 +1,9 @@
 import React from "react";
 import moment from "moment";
-import Tilt from 'react-tilt';
 
 const EventDetailCard = ({ country, city, venue, date }) => {
     return (
-        <div className="col-xs-12 col-sm-12 col-md-4 p-3 ">
+        <div className="col-xs-12 col-sm-12 col-md-4 p-2 ">
             <div className="card h-100 my-card my-card-anim">
                 <div className="card-body">
                     <div className="row p-2 card-title-row">
