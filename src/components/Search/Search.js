@@ -21,7 +21,7 @@ const Search = () => {
 
     const handleInputChange = (e) => {
         e.preventDefault();
-        if(e.target.value.trim() === ""){
+        if (e.target.value.trim() === "") {
             setNoArtistFound(false);
         }
         setInputVal(e.target.value);
@@ -78,6 +78,7 @@ const Search = () => {
         setIsLoading(true);
         setNoArtistFound(false);
 
+<<<<<<< HEAD
         api.getArtistSearchResults(inputVal).then(
             (data) => {
                 if(data.artists && data.artists.length === 0){
@@ -87,10 +88,33 @@ const Search = () => {
                 setIsLoading(false);
             }
         )
+=======
+        const URL = prepareSearchValue(inputVal);
+        try {
+            fetch(URL).then(
+                (response) => response.json().then(
+                    (data) => {
+                        if (data.artists && data.artists.length === 0) {
+                            setNoArtistFound(true);
+                        }
+                        setArtist(data.artists);
+                        setIsLoading(false);
+                    }
+                )
+            )
+        } catch (error) {
+            console.log(error);
+        }
+>>>>>>> 6977c12dc0a0caf247ae849d13e3f3cd771f52da
     }
 
     useDebounce(inputVal, 500, getArtist);
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 6977c12dc0a0caf247ae849d13e3f3cd771f52da
     return (
         <motion.div className="container search-container"
             animate={isExpanded ? "expanded" : "collapsed"}
@@ -123,9 +147,9 @@ const Search = () => {
                     }
                 </AnimatePresence>
             </div>
-            { isExpanded && <div className="line-seperator"/>}
+            {isExpanded && <div className="line-seperator" />}
             {
-                isExpanded && 
+                isExpanded &&
                 <div className="search-content">
                     {
                         isLoading &&
@@ -138,31 +162,31 @@ const Search = () => {
                         <div className="loading-wrapper">
                             <span className="search-warning">Start typing to search.</span>
                         </div>
-                        
+
                     }
                     {
                         !isLoading && noArtistFound &&
                         <div className="loading-wrapper">
                             <span className="search-warning">No Artist found!</span>
                         </div>
-                        
+
                     }
                     {
                         !isLoading && !isEmpty &&
-                        <div> 
+                        <div>
                             {
                                 artists.map((artist) => (
-                                    <ArtistSearchResult thumbnailSrc={artist.imageSrc} 
-                                    artistName={artist.name} 
-                                    key={artist.name}/>
+                                    <ArtistSearchResult thumbnailSrc={artist.imageSrc}
+                                        artistName={artist.name}
+                                        key={artist.name} />
                                 ))
-                                    
+
                             }
                         </div>
                     }
                 </div>
             }
-    
+
         </motion.div>
     );
 }
