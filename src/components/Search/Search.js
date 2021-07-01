@@ -78,43 +78,19 @@ const Search = () => {
         setIsLoading(true);
         setNoArtistFound(false);
 
-<<<<<<< HEAD
         api.getArtistSearchResults(inputVal).then(
             (data) => {
-                if(data.artists && data.artists.length === 0){
+                if (data.artists && data.artists.length === 0) {
                     setNoArtistFound(true);
                 }
                 setArtist(data.artists);
                 setIsLoading(false);
             }
         )
-=======
-        const URL = prepareSearchValue(inputVal);
-        try {
-            fetch(URL).then(
-                (response) => response.json().then(
-                    (data) => {
-                        if (data.artists && data.artists.length === 0) {
-                            setNoArtistFound(true);
-                        }
-                        setArtist(data.artists);
-                        setIsLoading(false);
-                    }
-                )
-            )
-        } catch (error) {
-            console.log(error);
-        }
->>>>>>> 6977c12dc0a0caf247ae849d13e3f3cd771f52da
     }
 
     useDebounce(inputVal, 500, getArtist);
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 6977c12dc0a0caf247ae849d13e3f3cd771f52da
     return (
         <motion.div className="container search-container"
             animate={isExpanded ? "expanded" : "collapsed"}
