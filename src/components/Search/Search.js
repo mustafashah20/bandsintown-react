@@ -6,6 +6,7 @@ import { MoonLoader } from 'react-spinners';
 import { useDebounce } from '../../hooks/debounceHook'
 import ArtistSearchResult from '../ArtistSearchResult/ArtistSearchResult';
 import * as api from '../../api/artistApi';
+import ArtistBanner from '../ArtistBanner/ArtistBanner';
 
 const Search = () => {
 
@@ -15,9 +16,17 @@ const Search = () => {
     const [isExpanded, setExpanded] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [clickRef, isClickedOutside] = useClickOutside();
+    const [cachedArtist, setCachedArtist] = useState(null);
     const inputRef = useRef();
 
     const isEmpty = !artists || artists.length === 0;
+
+    useEffect(() => {
+        const data = localStorage.getItem('artist')
+        if (data) {
+            setCachedArtist(JSON.parse(data));
+        }
+    }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
     const handleInputChange = (e) => {
         e.preventDefault();
@@ -85,79 +94,103 @@ const Search = () => {
 
     useDebounce(inputVal, 500, getArtist);
 
+    const deleteLocalStorage = () => {
+        localStorage.removeItem('artist');
+        localStorage.removeItem('artist-events');
+        setCachedArtist(null);
+    } 
+
     return (
-        <motion.div className="container search-container"
-            animate={isExpanded ? "expanded" : "collapsed"}
-            variants={containerVariat}
-            transition={containerTransition}
-            ref={clickRef}>
-            <div className="search-input-container">
-                <span className="search-icon">
-                    <BsSearch />
-                </span>
-                <input type="text"
-                    className="search-input"
-                    placeholder="Search for Artists"
-                    onChange={handleInputChange}
-                    onFocus={expandContainer}
-                    ref={inputRef}
-                    value={inputVal}
-                />
-                <AnimatePresence>
-                    {isExpanded &&
-                        <motion.span className="close-icon"
-                            key="close-icon"
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            transition={{ duration: 0.2 }}
-                            onClick={collapseContainer} >
-                            <BsX />
-                        </motion.span>
-                    }
-                </AnimatePresence>
-            </div>
-            {isExpanded && <div className="line-seperator" />}
-            {
-                isExpanded &&
-                <div className="search-content">
-                    {
-                        isLoading &&
-                        <div className="loading-wrapper">
-                            <MoonLoader loading={true} color="#000" size={30} />
-                        </div>
-                    }
-                    {
-                        !isLoading && isEmpty && !noArtistFound &&
-                        <div className="loading-wrapper">
-                            <span className="search-warning">Start typing to search.</span>
-                        </div>
-
-                    }
-                    {
-                        !isLoading && noArtistFound &&
-                        <div className="loading-wrapper">
-                            <span className="search-warning">No Artist found!</span>
-                        </div>
-
-                    }
-                    {
-                        !isLoading && !isEmpty &&
-                        <div>
-                            {
-                                artists.map((artist) => (
-                                    <ArtistSearchResult thumbnailSrc={artist.imageSrc}
-                                        artistName={artist.name}
-                                        key={artist.name} />
-                                ))
-
-                            }
-                        </div>
-                    }
+        <div className="container">
+            <motion.div className="container search-container"
+                animate={isExpanded ? "expanded" : "collapsed"}
+                variants={containerVariat}
+                transition={containerTransition}
+                ref={clickRef}>
+                <div className="search-input-container">
+                    <span className="search-icon">
+                        <BsSearch />
+                    </span>
+                    <input type="text"
+                        className="search-input"
+                        placeholder="Search for Artists"
+                        onChange={handleInputChange}
+                        onFocus={expandContainer}
+                        ref={inputRef}
+                        value={inputVal}
+                    />
+                    <AnimatePresence>
+                        {isExpanded &&
+                            <motion.span className="close-icon"
+                                key="close-icon"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                onClick={collapseContainer} >
+                                <BsX />
+                            </motion.span>
+                        }
+                    </AnimatePresence>
                 </div>
-            }
+                {isExpanded && <div className="line-seperator" />}
+                {
+                    isExpanded &&
+                    <div className="search-content">
+                        {
+                            isLoading &&
+                            <div className="loading-wrapper">
+                                <MoonLoader loading={true} color="#000" size={30} />
+                            </div>
+                        }
+                        {
+                            !isLoading && isEmpty && !noArtistFound &&
+                            <div className="loading-wrapper">
+                                <span className="search-warning">Start typing to search.</span>
+                            </div>
 
-        </motion.div>
+                        }
+                        {
+                            !isLoading && noArtistFound &&
+                            <div className="loading-wrapper">
+                                <span className="search-warning">No Artist found!</span>
+                            </div>
+
+                        }
+                        {
+                            !isLoading && !isEmpty &&
+                            <div>
+                                {
+                                    artists.map((artist) => (
+                                        <ArtistSearchResult thumbnailSrc={artist.imageSrc}
+                                            artistName={artist.name}
+                                            key={artist.name} />
+                                    ))
+
+                                }
+                            </div>
+                        }
+                    </div>
+                }
+
+            </motion.div>
+            {
+                cachedArtist &&
+                <p className="text-white h5 ps-2 mt-3">
+                    Last Search Result
+                </p>
+            }
+            {
+                cachedArtist &&
+                <ArtistBanner
+                    thumbnailURL={cachedArtist.thumb_url}
+                    artistName={cachedArtist.name}
+                    facebookUrl={cachedArtist.facebook_page_url}
+                    deleteButton={true}
+                    parentCallback={() => deleteLocalStorage()}
+                />
+            }
+        </div>
     );
 }
 

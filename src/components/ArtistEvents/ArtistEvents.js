@@ -60,7 +60,7 @@ const ArtistEvents = () => {
         if(events && newArtist){
             localStorage.setItem('artist-events', JSON.stringify(events))
         }
-    },[events]);
+    },[events]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const backClickHandler = () => {
         history.goBack();
@@ -98,6 +98,7 @@ const ArtistEvents = () => {
                         thumbnailURL={artist.thumb_url}
                         artistName={artist.name}
                         facebookUrl={artist.facebook_page_url}
+                        deleteButton={false}
                     />
                 }
             </div>

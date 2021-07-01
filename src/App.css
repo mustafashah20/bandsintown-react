@@ -206,8 +206,8 @@ html {
 
 .facebook-link {
     color: white;
+    font-size: 30px;
     text-decoration: none;
-    font-weight: 400;
 }
 
 .my-col {
@@ -236,4 +236,12 @@ html {
     transform: translateY(-3px);
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5) !important;
     cursor: pointer;
+}
+
+.delete-icon {
+    font-size: 30px;
+}
+
+.delete-icon:hover {
+    color: rgb(255, 50, 50) !important;
 }
