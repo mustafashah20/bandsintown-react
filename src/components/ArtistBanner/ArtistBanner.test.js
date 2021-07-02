@@ -1,6 +1,6 @@
 import React from 'react';
 import reactDom from 'react-dom';
-import ArtistBanner from '../components/ArtistBanner/ArtistBanner';
+import ArtistBanner from './ArtistBanner';
 
 
 test("artist banner renders without crashing", () => {

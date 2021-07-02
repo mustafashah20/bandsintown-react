@@ -1,6 +1,6 @@
 import React from 'react';
 import reactDom from 'react-dom';
-import ArtistEvents from '../components/ArtistEvents/ArtistEvents';
+import ArtistEvents from './ArtistEvents';
 
 jest.mock('react-router', () => ({
   useLocation: jest.fn().mockReturnValue({

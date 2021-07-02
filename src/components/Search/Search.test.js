@@ -1,6 +1,6 @@
 import React from 'react';
 import reactDom from 'react-dom';
-import Search from '../components/Search/Search';
+import Search from './Search';
 
 
 test("search renders without crashing", () => {

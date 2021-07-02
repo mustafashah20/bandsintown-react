@@ -1,6 +1,6 @@
 import React from 'react';
 import reactDom from 'react-dom';
-import ArtistSearchResult from '../components/ArtistSearchResult/ArtistSearchResult';
+import ArtistSearchResult from './ArtistSearchResult';
 
 
 test("artist search results renders without crashing", () => {
