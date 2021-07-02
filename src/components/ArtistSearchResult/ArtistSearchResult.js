@@ -6,6 +6,9 @@ const ArtistSearchResult = ({ thumbnailSrc, artistName }) => {
 
     const history = useHistory();
 
+    //Click handler for artist search result.
+    //Routes to artist's event page.
+    //Passes the artist JSON to the child component through state.
     const artistClickHandler = (name) => {
         api.getArtist(name).then(
             (data) => {

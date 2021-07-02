@@ -7,6 +7,7 @@ const ArtistBanner = (props) => {
 
     const history = useHistory();
 
+    //Routes to artist's events page.
     const routeToEvents = () => {
         history.goForward();
     }

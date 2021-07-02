@@ -15,6 +15,9 @@ const ArtistEvents = () => {
     const [newArtist, setNewArtist] = useState(true);
     const [isLoading, setIsLoading] = useState(false);
 
+    // Use Effect hook to get get the artist data from parent component.
+    // Fetches artist JSON from local storage if last searched artist is similar.
+    // Saves the artist JSON to local storage if new artist is fetched.
     useEffect(() => {
         const data = localStorage.getItem('artist');
         if (data) {
@@ -33,6 +36,10 @@ const ArtistEvents = () => {
         }
     }, [location]); // eslint-disable-line react-hooks/exhaustive-deps
 
+
+    // Use Effect hook to get the artist's events data .
+    // Fetches artist-events JSON from local storage if last searched artist is similar.
+    // Saves the artist-events JSON to local storage if new artist is fetched.
     useEffect(() => {
         if (artist) {
             saveArtist();
@@ -53,20 +60,25 @@ const ArtistEvents = () => {
         }
     }, [artist]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    //method for storing the artist JSON in local storage.
     const saveArtist = () => {
         localStorage.setItem('artist', JSON.stringify(artist))
     }
 
+    //Use Effect hook for storyig the artist-events JSON in local storage.
+    //This hook is triggered when events state is changed.
     useEffect(() => {
         if (events && newArtist) {
             localStorage.setItem('artist-events', JSON.stringify(events))
         }
     }, [events]); // eslint-disable-line react-hooks/exhaustive-deps
 
+    //method to route to previous page.
     const backClickHandler = () => {
         history.goBack();
     }
 
+    //Method for fetching the events of the artist from api.
     const getEventDetails = () => {
         if (artist) {
             setIsLoading(true);

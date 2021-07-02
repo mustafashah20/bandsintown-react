@@ -21,6 +21,7 @@ const Search = () => {
 
     const isEmpty = !artists || artists.length === 0;
 
+    //Use Effect hook to store the last searched artist in local storage.
     useEffect(() => {
         const data = localStorage.getItem('artist')
         if (data) {
@@ -28,6 +29,7 @@ const Search = () => {
         }
     }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
+    //Input handler for getting user's input value.
     const handleInputChange = (e) => {
         e.preventDefault();
         if (e.target.value.trim() === "") {
@@ -36,10 +38,12 @@ const Search = () => {
         setInputVal(e.target.value);
     }
 
+    //Method for setting the container expand state.
     const expandContainer = () => {
         setExpanded(true);
     }
 
+    //Method for setting the container expand state.
     const collapseContainer = () => {
         setExpanded(false);
         setInputVal('');
@@ -51,6 +55,7 @@ const Search = () => {
         }
     }
 
+    //Container variant used for framer motion div.
     const containerVariat = {
         expanded: {
             height: "30em",
@@ -60,18 +65,21 @@ const Search = () => {
         }
     }
 
+    //Container tranisition used for framer motion div.
     const containerTransition = {
         type: 'spring',
         damping: 22,
         stiffness: 150
     }
 
+    //Use Effect hook to detect click outside the framer motion div.
     useEffect(() => {
         if (isClickedOutside) {
             collapseContainer();
         }
     }, [isClickedOutside]);
 
+    //Method for getting the artist search result.
     const getArtist = () => {
 
         if (!inputVal || inputVal.trim() === "") {
@@ -92,13 +100,16 @@ const Search = () => {
         )
     }
 
+    //Custom hook to debounce query
+    //Improves performance by limiting the rate at which function is invoked.
     useDebounce(inputVal, 500, getArtist);
 
+    //method for removing the artist & artist-events JSON from local storage.
     const deleteLocalStorage = () => {
         localStorage.removeItem('artist');
         localStorage.removeItem('artist-events');
         setCachedArtist(null);
-    } 
+    }
 
     return (
         <div className="container">
