@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router';
 import { BsChevronLeft } from "react-icons/bs";
 import EventDetailCard from '../EventDetailCard/EventDetailCard';
 import ArtistBanner from '../ArtistBanner/ArtistBanner';
@@ -22,6 +22,7 @@ const ArtistEvents = () => {
             if (location.state.artist.name === artistJSON.name) {
                 setArtist(artistJSON)
                 setNewArtist(false);
+                console.log(artist);
             }
             else {
                 setArtist(location.state.artist);
@@ -56,11 +57,11 @@ const ArtistEvents = () => {
         localStorage.setItem('artist', JSON.stringify(artist))
     }
 
-    useEffect(() =>{
-        if(events && newArtist){
+    useEffect(() => {
+        if (events && newArtist) {
             localStorage.setItem('artist-events', JSON.stringify(events))
         }
-    },[events]); // eslint-disable-line react-hooks/exhaustive-deps
+    }, [events]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const backClickHandler = () => {
         history.goBack();

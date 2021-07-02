@@ -8,7 +8,6 @@ const ArtistBanner = (props) => {
     const history = useHistory();
 
     const routeToEvents = () => {
-        console.log("forward")
         history.goForward();
     }
 
