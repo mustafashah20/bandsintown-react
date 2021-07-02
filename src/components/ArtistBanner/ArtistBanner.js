@@ -9,7 +9,12 @@ const ArtistBanner = (props) => {
 
     //Routes to artist's events page.
     const routeToEvents = () => {
-        history.goForward();
+        const data = localStorage.getItem('artist');
+        const artistJSON = JSON.parse(data);
+        history.push({
+            pathname: '/event',
+            state: { artist: artistJSON }
+        })
     }
 
     return (

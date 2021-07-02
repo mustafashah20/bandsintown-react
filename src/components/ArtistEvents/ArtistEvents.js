@@ -75,7 +75,7 @@ const ArtistEvents = () => {
 
     //method to route to previous page.
     const backClickHandler = () => {
-        history.goBack();
+        history.replace('/');
     }
 
     //Method for fetching the events of the artist from api.
